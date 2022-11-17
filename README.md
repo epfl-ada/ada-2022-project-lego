@@ -1,11 +1,10 @@
 # ADA Project - team LEGO
 
-# How emotions make the money? Movies sentiment analysis in time.
+# How on-screen emotions make the money? Movies sentiment analysis in time.
 
 ## Abstract
-\<Embedding in the real world timeline and event. Explaining the problem (answering the WHAT question). Explaining why we are doing this analysis (answering the WHY question). Then generally describing the methods (answearing HOW question) and what data they will use (basic desription of dataset - TIMELINE and SOURCE).>
 
-What’s the motivation behind your project? What story would you like to tell, and why?
+Flourishing film industry in 2019 achived the [global box office](https://www.statista.com/statistics/260198/filmed-entertainment-revenue-worldwide-by-region/) worth of around $42.2 billions. One year earlier, in 2018, when [including home entartainment](https://en.wikipedia.org/wiki/Film_industry), this market segment was priced at $136 billions. For comparison in 2018 [Switzerland GDP](https://www.google.com/search?q=swiss+gdp&oq=swiss+gdp&aqs=chrome..69i57.3721j0j4&sourceid=chrome&ie=UTF-8) was $735.5 billions. The most [popular titles](https://www.boxofficemojo.com/year/world/?ref_=bo_nb_yl_tab) (such us Top Gun: Maveric) can bring box office revenue of $1.486 billions worldwide. This shows how big of a deal it is to draw up a good recipe for entertaining and gripping movie. With the use of [CMU Movie Summary Corpus](http://www.cs.cmu.edu/~ark/personas/), additional datasets ([IMDB](https://www.imdb.com/), [TMDB](https://www.themoviedb.org/)) we will analyze the most popular movies' plots and extract their sentiment ingredients. Beside assessing general sentiment we will dive deeper and focus on, closest to the human soul, emotions. Moreover we will try to answer how and which manifestations of the violence influence movie popularity.
 
 ## Research question
 1. How prevalent in popular movies are emotions (anger, disgust, fear, joy, sadness, surprise love, neutral), general sentiment (positivity, negativity), violence dose (custom measurement), violence manifestation (most frequent word)?
