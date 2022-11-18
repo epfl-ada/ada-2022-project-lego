@@ -24,17 +24,21 @@ Eventually, we requested movie certificate data from both databases, which can b
 - TMDB - Main source for dataset augmentation. We obtained revenues, plot summaries and certificates using TMDB API.
 - IMDB - Further extension of movies from TMDB by ratings and additional plot summaries.
 - Inflation over the years data (derived from Customer Price Index)
-- Grievance dictionary
+- [Grievance dictionary](https://github.com/Isabellevdv/grievancedictionary) - it will help us to assess the plot violence score and infere what kind of violence manifestation were the most common. We will use especially the dictionary with words for which the threat category fit rating is at least 7 to have the most violence correlated words (scale explained below).
+  - Contains 3633 entries, each has 4 features (id, category, word, mean rating)
+  - [Threat assessment experts](https://link.springer.com/article/10.3758/s13428-021-01536-2) divided the dictionary into 22 categories (e.g. threat, murder, violence, paranoia etc.)
+  - There are 2479 unique words overall
+  - The mean rating - how well does the word fits it's category (0 = does not fit at all, 10 = fits perfectly)
 
 ## Methods
 
-### Data acquiring
+### 0. Data acquiring
 
 - [IMDB](https://www.imdb.com/) - python [cinemagoer](https://imdbpy.readthedocs.io/en/latest/) library
 - [TMDB](https://www.themoviedb.org/) - python [request](https://requests.readthedocs.io/en/latest/) library
 - [CPI](https://www.bls.gov/cpi/data.htm) - downloading the data from the website
 
-### Data preprocessing
+### 1. Data preprocessing
 
 We need to keep only the frames with either revenues or user ratings, to be able to perform the final popularity correlation. What is also important is expressivity of the plot summaries. If we have in total less then 100 words, we drop these movies as well.
 
@@ -43,13 +47,13 @@ Assumptions:
 - popular movies means the one which got the highest box revenues or are highest rated in user rankings.
 - when considering sentiment indicators influence on the revenue and reviews, we ommit the aspect of technical realisation of the movie.
 
-### Sentiment analysis
+### 2. Sentiment analysis
 
-- emotions - pretrained transformer - [distiled RoBERT trained on 6 different datasets](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base?text=This+movie+always+makes+me+cry..) - [|collab working example|](https://colab.research.google.com/drive/1XGtSiTwpB2o8EImQ2PeRzpHL_kSxBTOV?usp=sharing)
-- general sentiment - method based on [predefined dictionary](https://github.com/sloria/TextBlob/blob/6396e24e85af7462cbed648fee21db5082a1f3fb/textblob/en/en-sentiment.xml) - python [TextBlob](https://textblob.readthedocs.io/en/dev/index.html) library - [|collab working example|]()
-- violence - [grievance dictionary](https://github.com/Isabellevdv/grievancedictionary)
-  - measurement - term frequency and weighting - [|collab working example|]()
-  - manifestation - tf and wordnet synset - [|collab working example|]()
+1. general sentiment - we will use python [TextBlob](https://textblob.readthedocs.io/en/dev/index.html) library, which sentimet analyzer is based on [predefined dictionary](https://github.com/sloria/TextBlob/blob/6396e24e85af7462cbed648fee21db5082a1f3fb/textblob/en/en-sentiment.xml). This utility gives us informations such as: polarity (ranging from -1.0 to 1.0, where 1 indicates highest positivity), subjectivity (ranging from 0.0 to 1.0, where 0 means maximal objectivity)
+2. emotions - pretrained transformer - [distiled RoBERT trained on 6 different datasets](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base?text=This+movie+always+makes+me+cry..)
+3. violence - [grievance dictionary](https://github.com/Isabellevdv/grievancedictionary)
+   - measurement - in order to measure general violence amount in movies we will use [min-max normalization](<https://en.wikipedia.org/wiki/Normalization_(statistics)>) to mean category fit score and increase it by one to have indication that the violence occured. Then for each plot we will add the normalized scores to obtain overall violence
+   - manifestation - for assessing the most popular manifestation of the violence we will use top-k method combined with max mean fit score value, which will tell us what were the most violence correlated words
 
 ### Answering the questions
 
@@ -67,7 +71,6 @@ Assumptions:
 - Ondrej
   - Scraping movie data
   - Data descriptive stats
-  - Readme finish
 - Lauri
   - Finding America inflation data (movies revenue in USD)
 - Wojtek
