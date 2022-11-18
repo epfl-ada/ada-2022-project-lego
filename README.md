@@ -55,10 +55,6 @@ Assumptions:
    - measurement - in order to measure general violence amount in movies we will use [min-max normalization](<https://en.wikipedia.org/wiki/Normalization_(statistics)>) to mean category fit score and increase it by one to have indication that the violence occured. Then for each plot we will add the normalized scores to obtain overall violence
    - manifestation - for assessing the most popular manifestation of the violence we will use top-k method combined with max mean fit score value, which will tell us what were the most violence correlated words
 
-### Answering the questions
-
-\<Infering from the data processing>
-
 ## Proposed timeline and organization within the team
 
 ### Workload split
@@ -101,3 +97,5 @@ Assumptions:
 - (23.12.22r.) Project deadline
 
 ## Questions for TAs
+
+Nothing yet
