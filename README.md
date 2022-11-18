@@ -2,7 +2,7 @@
 
 # How on-screen emotions make the money?
 
-## _Analysis of movie sentiment correlation to ratings and revenue in years_.
+### _Analysis of movie sentiment correlation to ratings and revenue in years_.
 
 ## Abstract
 
@@ -44,8 +44,7 @@ We need to keep only the frames with either revenues or user ratings, to be able
 
 Assumptions:
 
-- popular movies means the one which got the highest box revenues or are highest rated in user rankings.
-- when considering sentiment indicators influence on the revenue and reviews, we ommit the aspect of technical realisation of the movie.
+- The term popular movies means the ones which got the highest box revenues or are highest rated in user rankings. We are using these movies, beause it is infeasible to use all the films which were ever made.
 
 ### 2. Sentiment analysis
 
