@@ -18,12 +18,12 @@ The flourishing film industry in 2019 achieved the [global box office](https://w
 
 ## Additional data resources
 
-As can be seen in the attached notebook, the provided CMU Movie Summary Corpus contains movie data ranging from 1917 to 2011. As we consider the years from 2005 - 2022 a period of the film industry's exponential growth with vast amounts of data, we also want to include these years in the research. We used TMDB to query data from 1915-2021 and obtained 400k movies in total. Also, out of all 42k CMU movies, we have only 10% of revenues, with poor distribution over the years, so we tried to get more revenue data from the internet movie database TMDB. Moreover, we consider ratings a significant preference and popularity indicator besides revenue, for which we are getting rating value and count data from IMDb, the most popular movie-rating platform. Additionally, CMU Movie Summary Corpus data contains summaries that are sometimes very short, making it hard to perform sentiment analysis on such brief texts. We augment the data using TMdB and IMDb plot overviews, synopsis, and alternative plot summaries.
+As can be seen in the attached notebook, the provided CMU Movie Summary Corpus contains movie data ranging from 1917 to 2011. As we consider the years from 2005 - 2022 a period of the film industry's exponential growth with vast amounts of data, we also want to include these years in the research. We used TMDB to query data from 1915-2021 and obtained 400k movies in total. Also, out of all 42k CMU movies, we have only 10% of revenues, with poor distribution over the years, so we tried to get more revenue data from the internet movie database TMDB. Moreover, we consider ratings a significant preference and popularity indicator besides revenue, for which we are getting rating value and count data from IMDB, the most popular movie-rating platform. Additionally, CMU Movie Summary Corpus data contains summaries that are sometimes very short, making it hard to perform sentiment analysis on such brief texts. We augment the data using TMdB and IMDb plot overviews, synopsis, and alternative plot summaries.
 Eventually, we requested movie certificate data from both databases, which can be a potentially helpful indicator of movie violence/romance severity.
 
-- TMDB - Main source for dataset augmentation. We obtained revenues, plot summaries and certificates using TMDB API.
-- IMDB - Further extension of movies from TMDB by ratings and additional plot summaries.
-- Inflation over the years data (derived from Customer Price Index)
+- [TMDB](https://www.themoviedb.org/) - Main source for dataset augmentation. We obtained revenues, plot summaries and certificates using TMDB API.
+- [IMDB](https://www.imdb.com/) - Further extension of movies from TMDB by ratings and additional plot summaries.
+- Inflation over the years data (derived from [Customer Price Index](https://www.bls.gov/cpi/data.htm))
 - [Grievance dictionary](https://github.com/Isabellevdv/grievancedictionary) - it will help us to assess the plot violence score and infere what kind of violence manifestation were the most common. We will use especially the dictionary with words for which the threat category fit rating is at least 7 to have the most violence correlated words (scale explained below).
   - Contains 3633 entries, each has 4 features (id, category, word, mean rating)
   - [Threat assessment experts](https://link.springer.com/article/10.3758/s13428-021-01536-2) divided the dictionary into 22 categories (e.g. threat, murder, violence, paranoia etc.)
@@ -49,7 +49,12 @@ Assumptions:
 ### 2. Sentiment analysis
 
 1. general sentiment - we will use python [TextBlob](https://textblob.readthedocs.io/en/dev/index.html) library, which sentimet analyzer is based on [predefined dictionary](https://github.com/sloria/TextBlob/blob/6396e24e85af7462cbed648fee21db5082a1f3fb/textblob/en/en-sentiment.xml). This utility gives us informations such as: polarity (ranging from -1.0 to 1.0, where 1 indicates highest positivity), subjectivity (ranging from 0.0 to 1.0, where 0 means maximal objectivity)
-2. emotions - pretrained transformer - [distiled RoBERT trained on 6 different datasets](https://huggingface.co/j-hartmann/emotion-english-distilroberta-base?text=This+movie+always+makes+me+cry..)
+2. emotions - for this part we choose 3 [Hugging Face](https://huggingface.co/) pretrained transformer classifiers with different emotion classes.
+We based our analysis on models that had a word limit of 512 words
+In order to process our summary plots, we had to divide them into chunks of 512 words each and then we generated emotions for each chunk.
+The final overall emotions for the summary is obtained by taking the average of the emotions over all its chuncks.
+This was performed under the assumption that the chunks are independent.
+The next step will focus on computing the outputs and execution time of each classifier and performing model selection.
 3. violence - [grievance dictionary](https://github.com/Isabellevdv/grievancedictionary)
    - measurement - in order to measure general violence amount in movies we will use [min-max normalization](<https://en.wikipedia.org/wiki/Normalization_(statistics)>) to mean category fit score and increase it by one to have indication that the violence occured. Then for each plot we will add the normalized scores to obtain overall violence
    - manifestation - for assessing the most popular manifestation of the violence we will use top-k method combined with max mean fit score value, which will tell us what were the most violence correlated words
@@ -63,6 +68,7 @@ Assumptions:
 - Emna
   - Implementing and testing SA methods
     - distiled RoBERT utilities
+    - movie plot processing and generation of emotions for each movie
 - Ondrej
   - Scraping movie data
   - Data descriptive stats
