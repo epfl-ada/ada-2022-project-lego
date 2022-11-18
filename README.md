@@ -34,13 +34,20 @@ Eventually, we requested movie certificate data from both databases, which can b
 
 ### 0. Data acquiring
 
+- [Wikidata](https://www.wikidata.org/) - python [request](https://requests.readthedocs.io/en/latest/) library + SPARQL queries
 - [IMDB](https://www.imdb.com/) - python [cinemagoer](https://imdbpy.readthedocs.io/en/latest/) library
-- [TMDB](https://www.themoviedb.org/) - python [request](https://requests.readthedocs.io/en/latest/) library
+- [TMDB](https://www.themoviedb.org/) - python [request](https://requests.readthedocs.io/en/latest/) library + API queries
 - [CPI](https://www.bls.gov/cpi/data.htm) - downloading the data from the website
 
 The movie data acquiring process consist of
 
 - 1. requesting TMDB movies list sequentiall by years and pages using the script data_scraper.py from TMDB API
+- 2. requesting TMDB movie details, including imdb_id, revenue, plot_overview and certificates from TMDB API
+- 3. requesting IMDb movie details (plot overview, plot alterantives, synopsis, rating, number of votes, genres, certificates) using python library cinemagoer
+
+We also plan to employ another pipeline in case of need of scraping of additional data to CMU corpus, where the first stage was already performed as
+
+- 1. requesting Wikidata SPARQL endpoind for TMDB and IMDb ids using mapped ids from freebase ids to wikidata ids using mapping found [here](https://developers.google.com/freebase#freebase-wikidata-mappings) with script id_scraper.py
 - 2. requesting TMDB movie details, including imdb_id, revenue, plot_overview and certificates from TMDB API
 - 3. requesting IMDb movie details (plot overview, plot alterantives, synopsis, rating, number of votes, genres, certificates) using python library cinemagoer
 
