@@ -46,6 +46,8 @@ Assumptions:
 
 - The term popular movies means the ones which got the highest box revenues or are highest rated in user rankings. We are using these movies, beause it is infeasible to use all the films which were ever made.
 
+For violence analysis plots were cleaned (the punctuation was removed), tokenized, and stemmed with the use of [nltk](https://www.nltk.org/) library. It was required step in order to work with grievance dictionary as it consists of violence word stems.
+
 ### 2. Sentiment analysis
 
 1. general sentiment - we will use python [TextBlob](https://textblob.readthedocs.io/en/dev/index.html) library, which sentimet analyzer is based on [predefined dictionary](https://github.com/sloria/TextBlob/blob/6396e24e85af7462cbed648fee21db5082a1f3fb/textblob/en/en-sentiment.xml). This utility gives us informations such as: polarity (ranging from -1.0 to 1.0, where 1 indicates highest positivity), subjectivity (ranging from 0.0 to 1.0, where 0 means maximal objectivity)
