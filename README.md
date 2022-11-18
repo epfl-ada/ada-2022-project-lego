@@ -2,7 +2,7 @@
 
 # How on-screen emotions make the money?
 
-### _Analysis of movie sentiment correlation to ratings and revenue in years_.
+### _Analysis of movie sentiment impact on ratings and revenue in years_.
 
 ## Abstract
 
@@ -18,7 +18,7 @@ The flourishing film industry in 2019 achieved the [global box office](https://w
 
 ## Additional data resources
 
-As can be seen in the attached notebook, the provided CMU Movie Summary Corpus contains movie data ranging from 1917 to 2011. As we consider the years from 2005 - 2022 a period of the film industry's exponential growth with vast amounts of data, we also want to include these years in the research. We used TMDB to query data from 1915-2021 and obtained 400k movies in total. Also, out of all 42k CMU movies, we have only 10% of revenues, with poor distribution over the years, so we tried to get more revenue data from the internet movie database TMDB. Moreover, we consider ratings a significant preference and popularity indicator besides revenue, for which we are getting rating value and count data from IMDB, the most popular movie-rating platform. Additionally, CMU Movie Summary Corpus data contains summaries that are sometimes very short, making it hard to perform sentiment analysis on such brief texts. We augment the data using TMdB and IMDb plot overviews, synopsis, and alternative plot summaries.
+As can be seen in the attached notebook, the provided CMU Movie Summary Corpus contains movie data ranging from 1917 to 2011. As we consider the years from 2005 - 2022 a period of the film industry's exponential growth with vast amounts of data, we also want to include these years in the research. We used TMDB to query data from 1915-2021 and obtained 400k movies in total with 14k movies with revenues. Also, out of all 42k CMU movies, we have only 7k with revenues, with poor distribution over the years, so we tried to get more revenue data from the internet movie database TMDB. Moreover, we consider ratings a significant preference and popularity indicator besides revenue, for which we are getting rating value and count data from IMDB, the most popular movie-rating platform. Additionally, CMU Movie Summary Corpus data contains summaries that are sometimes very short, making it hard to perform sentiment analysis on such brief texts. We augment the data using TMdB and IMDb plot overviews, synopsis, and alternative plot summaries.
 Eventually, we requested movie certificate data from both databases, which can be a potentially helpful indicator of movie violence/romance severity.
 
 - [TMDB](https://www.themoviedb.org/) - Main source for dataset augmentation. We obtained revenues, plot summaries and certificates using TMDB API.
@@ -38,9 +38,15 @@ Eventually, we requested movie certificate data from both databases, which can b
 - [TMDB](https://www.themoviedb.org/) - python [request](https://requests.readthedocs.io/en/latest/) library
 - [CPI](https://www.bls.gov/cpi/data.htm) - downloading the data from the website
 
+The movie data acquiring process consist of
+
+- 1. requesting TMDB movies list sequentiall by years and pages using the script data_scraper.py from TMDB API
+- 2. requesting TMDB movie details, including imdb_id, revenue, plot_overview and certificates from TMDB API
+- 3. requesting IMDb movie details (plot overview, plot alterantives, synopsis, rating, number of votes, genres, certificates) using python library cinemagoer
+
 ### 1. Data preprocessing
 
-We need to keep only the frames with either revenues or user ratings, to be able to perform the final popularity correlation. What is also important is expressivity of the plot summaries. If we have in total less then 100 words, we drop these movies as well.
+We need to keep only the frames with either revenues or user ratings, to be able to perform the final popularity impact analysis. What is also important is expressivity of the plot summaries. If we have in total less then 100 words in plot descriptions in total, we drop these movies as well.
 
 Assumptions:
 
@@ -52,11 +58,11 @@ For violence analysis plots were cleaned (the punctuation was removed), tokenize
 
 1. general sentiment - we will use python [TextBlob](https://textblob.readthedocs.io/en/dev/index.html) library, which sentimet analyzer is based on [predefined dictionary](https://github.com/sloria/TextBlob/blob/6396e24e85af7462cbed648fee21db5082a1f3fb/textblob/en/en-sentiment.xml). This utility gives us informations such as: polarity (ranging from -1.0 to 1.0, where 1 indicates highest positivity), subjectivity (ranging from 0.0 to 1.0, where 0 means maximal objectivity)
 2. emotions - for this part we choose 3 [Hugging Face](https://huggingface.co/) pretrained transformer classifiers with different emotion classes.
-We based our analysis on models that had a word limit of 512 words
-In order to process our summary plots, we had to divide them into chunks of 512 words each and then we generated emotions for each chunk.
-The final overall emotions for the summary is obtained by taking the average of the emotions over all its chuncks.
-This was performed under the assumption that the chunks are independent.
-The next step will focus on computing the outputs and execution time of each classifier and performing model selection.
+   We based our analysis on models that had a word limit of 512 words
+   In order to process our summary plots, we had to divide them into chunks of 512 words each and then we generated emotions for each chunk.
+   The final overall emotions for the summary is obtained by taking the average of the emotions over all its chuncks.
+   This was performed under the assumption that the chunks are independent.
+   The next step will focus on computing the outputs and execution time of each classifier and performing model selection.
 3. violence - [grievance dictionary](https://github.com/Isabellevdv/grievancedictionary)
    - measurement - in order to measure general violence amount in movies we will use [min-max normalization](<https://en.wikipedia.org/wiki/Normalization_(statistics)>) to mean category fit score and increase it by one to have indication that the violence occured. Then for each plot we will add the normalized scores to obtain overall violence
    - manifestation - for assessing the most popular manifestation of the violence we will use top-k method combined with max mean fit score value, which will tell us what were the most violence correlated words
