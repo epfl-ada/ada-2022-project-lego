@@ -84,29 +84,24 @@ For violence analysis plots were cleaned (the punctuation was removed), tokenize
   - Implementing and testing SA methods
     - distiled RoBERT utilities
     - movie plot processing and generation of emotions for each movie
+  - Analysis related to the questions 1, 2
 - Ondrej
   - Scraping movie data
+  - Filtering and preparing the data
   - Data descriptive stats
+  - Website
+  - Introductory chapters
+  - Analysis related to the questions 4, 5
 - Lauri
   - Finding America inflation data (movies revenue in USD)
+  - Analysis related to the questions 4, 5
 - Wojtek
   - Finding, implementing and testing SA methods
     - grievance dictionary utilities
       - tf and weighting for violence measurement
       - tf and wordnet synsets for violence manifestation
   - Readme outline
-
-#### For the upcoming work
-
-- Emna
-  - Analysis related to the questions 4, 5
-- Ondrej
-  - Analysis related to the question 5
-  - Website
-- Lauri
-  - Analysis related to the question 3
-- Wojtek
-  -Analysis related to the questions 1, 2
+  - Analysis related to the questions 1, 2
 
 ### Schedule
 
