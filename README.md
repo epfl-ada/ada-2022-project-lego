@@ -94,7 +94,7 @@ For violence analysis plots were cleaned (the punctuation was removed), tokenize
   - Analysis related to the questions 4, 5
 - Lauri
   - Finding America inflation data (movies revenue in USD)
-  - Analysis related to the questions 4, 5
+  - Analysis related to the questions 3, 4
 - Wojtek
   - Finding, implementing and testing SA methods
     - grievance dictionary utilities
