@@ -4,6 +4,10 @@
 
 ### _Analysis of movie sentiment impact on ratings and revenue in years_.
 
+## Datastory website
+
+Datastory website can be found [here!](https://ondini.github.io/on-screen-emotions/)
+
 ## Abstract
 
 The flourishing film industry in 2019 achieved the [global box office](https://www.statista.com/statistics/260198/filmed-entertainment-revenue-worldwide-by-region/) worth of around $42.2 billion. One year earlier, in 2018, when [including home entartainment](https://en.wikipedia.org/wiki/Film_industry), this market segment was priced at $136 billion. For comparison, in 2018 [Switzerland GDP](https://www.google.com/search?q=swiss+gdp&oq=swiss+gdp&aqs=chrome..69i57.3721j0j4&sourceid=chrome&ie=UTF-8) was $735.5 billion. The most [popular titles](https://www.boxofficemojo.com/year/world/?ref_=bo_nb_yl_tab) (such as Top Gun: Maveric) can bring box office revenue of $1.486 billion worldwide. This shows how big of a deal it is to draw up a good recipe for an entertaining and gripping movie. With the use of [CMU Movie Summary Corpus](http://www.cs.cmu.edu/~ark/personas/), additional datasets ([IMDB](https://www.imdb.com/), [TMDB](https://www.themoviedb.org/)) we will analyze the most popular movies' plots and extract their sentiment ingredients. Besides assessing general sentiment, we will dive deeper and focus on, closest to the human soul, emotions. Moreover, we will try to answer how and which manifestations of violence influence movie popularity.
